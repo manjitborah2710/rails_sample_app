@@ -1,0 +1,21 @@
+<%= form_for @user do |f| %>
+
+  <%= f.label :name,"Name" %>
+  <%= f.text_field :name, class:'form-control' %>
+
+  <%= f.label :email,"Email" %>
+  <%= f.email_field :email, class:'form-control' %>
+
+  <%= f.label :password,"Password" %>
+  <%= f.password_field :password, class:'form-control' %>
+
+  <%= f.label :password_confirmation,"Confirm Password" %>
+  <%= f.password_field :password_confirmation, class:'form-control' %>
+
+  <% if params[:action].to_s.eql?('new') %>
+    <%= f.submit "Sign Up",:class=>'btn btn-primary' %>
+  <% else %>
+    <%= f.submit "Save changes", class: "btn btn-primary" %>
+  <% end %>
+
+<% end %>

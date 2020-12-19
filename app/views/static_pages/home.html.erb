@@ -7,7 +7,9 @@
     sample application.
   </h2>
 
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary",id: "signup" %>
+  <% if !logged_in? %>
+    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary",id: "signup" %>
+  <% end %>
 </div>
 
 <%= link_to image_tag("rails.png", :alt =>  "Rails logo",:width => '100px',:height => '100px'), 'http://rubyonrails.org/',:target => '_blank' %>
