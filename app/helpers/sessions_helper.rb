@@ -44,12 +44,20 @@ module SessionsHelper
   def logged_in_correctly
     if !logged_in?
       store_location
-      flash[:danger]="Not logged in with correct user id. Please log in"
+      flash[:danger]="Please log in"
       redirect_to login_path
     elsif !params[:id].to_s.eql?(current_user.id.to_s)
       store_location
       flash[:danger]="You cannot access other user's info"
       redirect_to root_path
+    end
+  end
+
+  def logged_in_user
+    unless logged_in?
+      store_location
+      flash[:danger] = "Please log in."
+      redirect_to login_url
     end
   end
 

@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :find_user,only: [:show,:edit,:update]
   before_action :logged_in_correctly, only: [:edit,:update]
   before_action :admin_user,only: :destroy
+  before_action :logged_in_user, only: [:following, :followers]
 
   def new
     if logged_in?
@@ -43,6 +44,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @microposts = @user.microposts.paginate(page: params[:page],per_page: 10)
   end
 
 
@@ -69,6 +71,20 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
     redirect_to users_url
+  end
+
+  def following
+    @title = "Following"
+    @user  = User.find(params[:id])
+    @users = @user.following.paginate(page: params[:page],per_page:10)
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user  = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page],per_page:10)
+    render 'show_follow'
   end
 
 
